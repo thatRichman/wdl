@@ -19,3 +19,7 @@ runs:
         gh release download -R koalaman/shellcheck -p 'shellcheck-v*.zip' -O shellcheck-latest.zip
         7z x shellcheck-latest.zip
         Add-Content $env:GITHUB_PATH "$(Get-Location).Path"
+    - name: test for shellcheck - Windows
+      shell: powershell
+      if: runner.os == 'Windows'
+      run: where.exe shellcheck
