@@ -316,13 +316,14 @@ fn shellcheck_lint(
     let fix_msg = match diagnostic.fix {
         Some(ref fix) => {
             let reps = normalize_replacements(&fix.replacements, shift_tree);
-            let diag_span = {
+            let diagnostic_span = {
                 let start = diagnostic.column + shift_tree.prefix_sum(diagnostic.line - 1, 0) - 1;
                 let end =
                     diagnostic.end_column + shift_tree.prefix_sum(diagnostic.end_line - 1, 0) - 1;
                 Span::new(start, end - start)
             };
-            create_fix_message(reps, command_text, diag_span)
+            dbg!(&span, &diagnostic_span);
+            create_fix_message(reps, command_text, diagnostic_span)
         }
         None => String::from("address the diagnostic as recommended in the message"),
     };
